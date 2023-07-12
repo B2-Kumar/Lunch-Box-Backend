@@ -8,19 +8,24 @@ const { v4: uuid } = require("uuid");
 const bodyparser = require('body-parser')
 const stripe = require("stripe")("sk_test_51NJwRvSJu8nZs0KVHqnPLubSVMMpRWCCiT317uF8CBkteGJsZ9dgJ30V5ejxeSuC5ocQ9qic9G9luuw0zoZeR2PG00bHT6eG8J");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://lunch-box-frontend.vercel.app"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json())
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://lunch-box-frontend.vercel.app");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  )
-  next();
-})
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "https://lunch-box-frontend.vercel.app");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   )
+//   next();
+// })
 
 app.get('/', (req, res) => {
   res.send('Hello World!!')
